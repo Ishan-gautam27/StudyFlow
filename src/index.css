@@ -1,13 +1,68 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  background: #0D0F14;
+  color: #E8EBF4;
+  font-family: 'Sora', sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1E2535; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #2A3450; }
+
+@keyframes fadeIn   { from { opacity: 0; }                            to { opacity: 1; } }
+@keyframes slideUp  { from { transform: translateY(14px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes slideInR { from { transform: translateX(100%); }           to { transform: translateX(0); } }
+@keyframes slideInL { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
+@keyframes pulseDot { 0%,100% { opacity:1; transform:scale(1); }      50% { opacity:.5; transform:scale(.85); } }
+@keyframes shimmer  {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
 }
+
+.animate-fade-in    { animation: fadeIn   0.2s ease-out; }
+.animate-slide-up   { animation: slideUp  0.3s ease-out; }
+.animate-slide-in-r { animation: slideInR 0.3s cubic-bezier(.32,.72,0,1); }
+.animate-slide-in-l { animation: slideInL 0.25s ease-out; }
+.animate-pulse-dot  { animation: pulseDot 2s ease-in-out infinite; }
+
+.shimmer-dark {
+  background: linear-gradient(90deg, #161B27 25%, #1C2333 50%, #161B27 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+/* Glass effect for modals / overlays */
+.glass-dark {
+  background: rgba(22, 27, 39, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Iframe reset */
+iframe {
+  border: none;
+  display: block;
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid #6C8EF5;
+  outline-offset: 2px;
+}
+
+/* Category color vars */
+.cat-academic  { --cat: #6C8EF5; --cat-dim: rgba(108,142,245,0.12); }
+.cat-campus    { --cat: #3DD68C; --cat-dim: rgba(61,214,140,0.12);  }
+.cat-services  { --cat: #F5A623; --cat-dim: rgba(245,166,35,0.12);  }
+.cat-community { --cat: #F472B6; --cat-dim: rgba(244,114,182,0.12); }
+.cat-official  { --cat: #A78BFA; --cat-dim: rgba(167,139,250,0.12); }
