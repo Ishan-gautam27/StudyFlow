@@ -1,93 +1,119 @@
-import { Bell, ChevronDown, MessageSquare, Search } from 'lucide-react';
-import React, { useState } from 'react';
-import { currentUser, notifications } from '../../data/mockData';
+import { ArrowLeft, ExternalLink, Maximize2, Moon, RefreshCw, Search, Sun } from 'lucide-react';
+import React from 'react';
+import { useTheme } from '../../hooks/useTheme';
+import { usePortalStore } from '../../store/portalStore';
 
-interface TopbarProps {
-  pageTitle: string;
-}
-
-const Topbar: React.FC<TopbarProps> = ({ pageTitle }) => {
-  const [showNotifs, setShowNotifs] = useState(false);
-  const unread = notifications.filter(n => !n.read).length;
-
-  const today = new Date().toLocaleDateString('en-IN', {
-    weekday: 'long', day: 'numeric', month: 'long'
-  });
-
-  const notifTypeIcon: Record<string, string> = {
-    success: '🏆', info: '📋', warning: '⏰', error: '🚨'
-  };
+const Topbar: React.FC = () => {
+  const { openSearch, activeApp, closeApp, currentPage } = usePortalStore();
+  const { isDark, toggle } = useTheme();
 
   return (
-    <header className="flex items-center gap-4 px-6 py-4 bg-surface border-b border-border sticky top-0 z-30">
-      {/* Left: date + title */}
-      <div className="flex-1">
-        <p className="text-xs text-text-muted">{today}</p>
-        <h1 className="font-sans font-semibold text-text-primary text-lg leading-tight">{pageTitle}</h1>
-      </div>
-
-      {/* Search */}
-      <div className="flex items-center gap-2 bg-raised border border-border rounded-2xl px-3 py-2 w-56 focus-within:border-accent transition-all">
-        <Search size={15} className="text-text-muted flex-shrink-0" />
-        <input
-          type="text"
-          placeholder="Search anything..."
-          className="bg-transparent text-sm text-text-primary placeholder-text-muted outline-none w-full"
-        />
-      </div>
-
-      {/* Actions */}
-      <div className="flex items-center gap-2">
-        {/* Notifications */}
-        <div className="relative">
-          <button
-            onClick={() => setShowNotifs(!showNotifs)}
-            className="relative w-9 h-9 rounded-2xl bg-raised hover:bg-border-bright flex items-center justify-center transition-colors"
-          >
-            <Bell size={16} className="text-text-secondary" />
-            {unread > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red rounded-full" />
-            )}
-          </button>
-
-          {showNotifs && (
-            <div className="absolute right-0 top-12 w-80 bg-raised rounded-3xl shadow-card border border-border p-2 z-50">
-              <p className="text-xs font-semibold text-text-muted px-3 py-2 uppercase tracking-wide">Notifications</p>
-              {notifications.map(n => (
-                <div
-                  key={n.id}
-                  className={`flex gap-3 px-3 py-2.5 rounded-2xl hover:bg-border cursor-pointer transition-colors ${!n.read ? 'bg-accent/5' : ''}`}
-                >
-                  <span className="text-lg flex-shrink-0 mt-0.5">{n.appIcon}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-medium text-text-primary leading-snug">{n.title}</p>
-                    <p className="text-[12px] text-text-secondary leading-snug">{n.body}</p>
-                    <p className="text-[11px] text-text-muted mt-0.5">{n.time}</p>
-                  </div>
-                  {!n.read && <div className="w-1.5 h-1.5 bg-accent rounded-full mt-1.5 flex-shrink-0" />}
-                </div>
-              ))}
+    <header
+      className="flex items-center h-14 px-4 gap-4 flex-shrink-0 z-10"
+      style={{ background: 'var(--topbar-bg)', borderBottom: '1px solid var(--border)' }}
+    >
+      {/* Left */}
+      <div className="flex items-center gap-2 flex-1 min-w-0">
+        {activeApp ? (
+          <>
+            <button
+              onClick={closeApp}
+              className="flex items-center gap-1.5 transition-colors hover:opacity-80"
+              style={{ color: 'var(--text-dim)' }}
+            >
+              <ArrowLeft size={15} />
+              <span className="text-xs">Dashboard</span>
+            </button>
+            <span style={{ color: 'var(--text-muted)' }}>/</span>
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-sm flex-shrink-0">{activeApp.icon}</span>
+              <span className="text-sm font-medium truncate" style={{ color: 'var(--text-bright)' }}>{activeApp.name}</span>
+              <span className={`flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-medium flex-shrink-0
+                ${activeApp.status === 'online'   ? 'bg-green/10 text-green' :
+                  activeApp.status === 'degraded' ? 'bg-amber/10 text-amber' : 'bg-red/10 text-red'}`}
+              >
+                <span className={`w-1.5 h-1.5 rounded-full ${
+                  activeApp.status === 'online'   ? 'bg-green animate-pulse-dot' :
+                  activeApp.status === 'degraded' ? 'bg-amber' : 'bg-red'
+                }`} />
+                {activeApp.status}
+              </span>
             </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <span className="text-xs font-mono" style={{ color: 'var(--text-dim)' }}>
+            {currentPage === 'profile' ? '~/profile' : '~/dashboard'}
+          </span>
+        )}
+      </div>
 
-        <button className="w-9 h-9 rounded-2xl bg-raised hover:bg-border-bright flex items-center justify-center transition-colors">
-          <MessageSquare size={16} className="text-text-secondary" />
+      {/* Center: URL bar */}
+      {activeApp?.url && activeApp.type === 'iframe' && (
+        <div className="flex items-center gap-2 rounded-lg px-3 py-1.5 max-w-xs w-full"
+          style={{ background: 'var(--bg-base)', border: '1px solid var(--border)' }}>
+          <span className="w-2 h-2 rounded-full bg-green flex-shrink-0" />
+          <span className="text-[11px] font-mono truncate flex-1" style={{ color: 'var(--text-dim)' }}>{activeApp.url}</span>
+        </div>
+      )}
+
+      {/* Right */}
+      <div className="flex items-center gap-2 flex-shrink-0">
+        {activeApp?.type === 'iframe' && (
+          <>
+            <button
+              onClick={() => {
+                const iframe = document.getElementById('app-iframe') as HTMLIFrameElement;
+                if (iframe) { const src = iframe.src; iframe.src = ''; iframe.src = src; }
+              }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:opacity-80"
+              style={{ background: 'var(--border)', color: 'var(--text-dim)' }}
+              title="Reload"
+            >
+              <RefreshCw size={13} />
+            </button>
+            <button
+              onClick={() => activeApp.url && window.open(activeApp.url, '_blank')}
+              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:opacity-80"
+              style={{ background: 'var(--border)', color: 'var(--text-dim)' }}
+              title="Open in new tab"
+            >
+              <ExternalLink size={13} />
+            </button>
+            <button
+              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:opacity-80"
+              style={{ background: 'var(--border)', color: 'var(--text-dim)' }}
+              title="Fullscreen"
+            >
+              <Maximize2 size={13} />
+            </button>
+            <div className="w-px h-5 mx-1" style={{ background: 'var(--border)' }} />
+          </>
+        )}
+
+        {/* Theme toggle */}
+        <button
+          onClick={toggle}
+          className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:opacity-80 relative overflow-hidden"
+          style={{ background: 'var(--border)', color: 'var(--text-dim)' }}
+          title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          <span key={isDark ? 'moon' : 'sun'} className="animate-theme-in">
+            {isDark ? <Sun size={14} /> : <Moon size={14} />}
+          </span>
         </button>
 
-        {/* Avatar */}
-        <button className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-2xl hover:bg-raised transition-colors">
-          <div
-            className="w-8 h-8 rounded-2xl flex items-center justify-center text-xs font-semibold flex-shrink-0"
-            style={{ background: currentUser.avatarBg, color: currentUser.avatarColor }}
-          >
-            {currentUser.avatar}
-          </div>
-          <div className="hidden md:block text-left">
-            <p className="text-[13px] font-medium text-text-primary leading-tight">{currentUser.firstName}</p>
-            <p className="text-[11px] text-text-muted">{currentUser.grade}</p>
-          </div>
-          <ChevronDown size={14} className="text-text-muted" />
+        {/* Search */}
+        <button
+          onClick={openSearch}
+          className="flex items-center gap-2 rounded-lg px-3 h-8 transition-all hover:opacity-80"
+          style={{ background: 'var(--bg-base)', border: '1px solid var(--border)', color: 'var(--text-dim)' }}
+        >
+          <Search size={13} />
+          <span className="text-xs hidden sm:block">Search apps</span>
+          <kbd className="hidden sm:flex items-center text-[10px] font-mono px-1 py-0.5 rounded ml-1"
+            style={{ background: 'var(--border)' }}>
+            ⌘K
+          </kbd>
         </button>
       </div>
     </header>

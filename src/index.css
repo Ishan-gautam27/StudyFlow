@@ -4,65 +4,111 @@
 @tailwind components;
 @tailwind utilities;
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── CSS variables — light mode (default) ─────────────── */
+:root {
+  --bg-base:           #FAF8F3;
+  --bg-surface:        #F4F0E8;
+  --bg-card:           #FFFFFF;
+  --bg-card-hover:     #F8F5EE;
+  --border:            #E8E2D9;
+  --border-bright:     #D4CCC0;
+  --text-bright:       #1A1628;
+  --text-soft:         #3D3655;
+  --text-dim:          #7A7490;
+  --text-muted:        #B0AAC0;
+  --sidebar-bg:        #F0EBE0;
+  --topbar-bg:         #F8F5EE;
+  --scanline:          transparent;
+  --shadow-card:       0 2px 16px rgba(26,22,40,0.07);
+  --shadow-card-hover: 0 6px 28px rgba(26,22,40,0.12);
+}
 
-html, body, #root {
-  height: 100%;
-  background: #0D0F14;
-  color: #E8EBF4;
+/* ── CSS variables — dark mode ────────────────────────── */
+.dark {
+  --bg-base:           #0D0F14;
+  --bg-surface:        #131720;
+  --bg-card:           #161B27;
+  --bg-card-hover:     #1A2030;
+  --border:            #1E2535;
+  --border-bright:     #2A3347;
+  --text-bright:       #E2E8F4;
+  --text-soft:         #A8B8D4;
+  --text-dim:          #6B7FA3;
+  --text-muted:        #3D4F6B;
+  --sidebar-bg:        #0F1219;
+  --topbar-bg:         #0F1219;
+  --scanline:          repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px
+  );
+  --shadow-card:       0 4px 24px rgba(0,0,0,0.4);
+  --shadow-card-hover: 0 8px 40px rgba(0,0,0,0.6);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg-base);
   font-family: 'Sora', sans-serif;
+  color: var(--text-bright);
   -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
+/* Scanline — dark mode only */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--scanline);
+  pointer-events: none;
+  z-index: 0;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #1E2535; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: #2A3450; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-bright); }
 
-@keyframes fadeIn   { from { opacity: 0; }                            to { opacity: 1; } }
-@keyframes slideUp  { from { transform: translateY(14px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-@keyframes slideInR { from { transform: translateX(100%); }           to { transform: translateX(0); } }
-@keyframes slideInL { from { transform: translateX(-20px); opacity:0; } to { transform: translateX(0); opacity:1; } }
-@keyframes pulseDot { 0%,100% { opacity:1; transform:scale(1); }      50% { opacity:.5; transform:scale(.85); } }
-@keyframes shimmer  {
-  0%   { background-position: -400px 0; }
-  100% { background-position:  400px 0; }
+@keyframes fadeIn   { from { opacity: 0 }                              to { opacity: 1 } }
+@keyframes slideUp  { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes slideInR { from { opacity: 0; transform: translateX(32px) } to { opacity: 1; transform: translateX(0) } }
+@keyframes scaleIn  { from { opacity: 0; transform: scale(0.96) }      to { opacity: 1; transform: scale(1) } }
+@keyframes pulseDot { 0%,100% { opacity:1 } 50% { opacity:0.35 } }
+@keyframes shimmer  { 0% { background-position: -200% 0 } 100% { background-position: 200% 0 } }
+@keyframes spin     { to { transform: rotate(360deg) } }
+@keyframes themeSwitch { 0% { transform: scale(0.85) rotate(-15deg); opacity: 0 } 100% { transform: scale(1) rotate(0deg); opacity: 1 } }
+
+.animate-fade-in    { animation: fadeIn   0.3s ease-out }
+.animate-slide-up   { animation: slideUp  0.4s cubic-bezier(0.16,1,0.3,1) }
+.animate-slide-in-r { animation: slideInR 0.35s cubic-bezier(0.16,1,0.3,1) }
+.animate-scale-in   { animation: scaleIn  0.2s ease-out }
+.animate-pulse-dot  { animation: pulseDot 2s ease-in-out infinite }
+.animate-spin       { animation: spin 1s linear infinite }
+.animate-theme-in   { animation: themeSwitch 0.25s cubic-bezier(0.16,1,0.3,1) }
+
+.shimmer {
+  background: linear-gradient(90deg, var(--bg-surface) 25%, var(--border) 50%, var(--bg-surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
 }
 
-.animate-fade-in    { animation: fadeIn   0.2s ease-out; }
-.animate-slide-up   { animation: slideUp  0.3s ease-out; }
-.animate-slide-in-r { animation: slideInR 0.3s cubic-bezier(.32,.72,0,1); }
-.animate-slide-in-l { animation: slideInL 0.25s ease-out; }
-.animate-pulse-dot  { animation: pulseDot 2s ease-in-out infinite; }
-
-.shimmer-dark {
-  background: linear-gradient(90deg, #161B27 25%, #1C2333 50%, #161B27 75%);
-  background-size: 400px 100%;
-  animation: shimmer 1.4s infinite;
-}
-
-/* Glass effect for modals / overlays */
-.glass-dark {
-  background: rgba(22, 27, 39, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* Iframe reset */
-iframe {
-  border: none;
-  display: block;
-}
-
-/* Focus ring */
 *:focus-visible {
   outline: 2px solid #6C8EF5;
   outline-offset: 2px;
+  border-radius: 6px;
 }
 
-/* Category color vars */
-.cat-academic  { --cat: #6C8EF5; --cat-dim: rgba(108,142,245,0.12); }
-.cat-campus    { --cat: #3DD68C; --cat-dim: rgba(61,214,140,0.12);  }
-.cat-services  { --cat: #F5A623; --cat-dim: rgba(245,166,35,0.12);  }
-.cat-community { --cat: #F472B6; --cat-dim: rgba(244,114,182,0.12); }
-.cat-official  { --cat: #A78BFA; --cat-dim: rgba(167,139,250,0.12); }
+/* Theme transition — smooth on all elements */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+
+/* But don't slow down transforms/opacity (breaks animations) */
+.animate-slide-up, .animate-fade-in, .animate-scale-in,
+.animate-slide-in-r, .animate-pulse-dot, .animate-spin {
+  transition: none;
+}
