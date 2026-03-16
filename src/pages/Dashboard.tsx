@@ -215,7 +215,7 @@ const Dashboard: React.FC = () => {
                         className="w-full rounded-t-md transition-all duration-700"
                         style={{
                           height:     `${heightPct}%`,
-                          background: isToday ? '#6C8EF5' : '#1E2535',
+                          background: isToday ? '#6C8EF5' : 'var(--border)',
                           minHeight:  4,
                         }}
                       />
@@ -319,7 +319,7 @@ const Dashboard: React.FC = () => {
 
         {/* ── Footer ─────────────────────────────── */}
         <div className="border-t border-border pt-6 pb-2 flex items-center justify-between">
-          <p className="text-[10px] font-mono text-muted">UniPortal v2.0 · React + Docker</p>
+          <p className="text-[10px] font-mono text-muted">UniPortal v2.0 </p>
           <p className="text-[10px] font-mono text-muted">
             {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
           </p>

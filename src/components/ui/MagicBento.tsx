@@ -340,7 +340,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
       <div className="card-grid bento-section" ref={gridRef}>
         {apps.map((app, i) => {
           const cardStyle: React.CSSProperties = {
-            backgroundColor: '#131720',
+            backgroundColor: 'var(--bg-card)',
             '--glow-color':  glowColor,
           } as React.CSSProperties;
 
