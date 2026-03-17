@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
         {/* Title — hidden when collapsed */}
         {!sidebarCollapsed && (
           <div className="flex-1 min-w-0 overflow-hidden">
-            <p className="text-sm font-semibold leading-none" style={{ color: 'var(--text-bright)' }}>UniPortal</p>
+            <p className="text-sm font-semibold leading-none" style={{ color: 'var(--text-bright)' }}>StudyPortal</p>
             <p className="text-[10px] font-mono mt-0.5" style={{ color: 'var(--text-muted)' }}>v2.0 · campus OS</p>
           </div>
         )}
