@@ -4,6 +4,8 @@ StudyFlow is a React-based web application designed to help students manage thei
 
 ---
 
+![React](https://img.shields.io/badge/React-18-blue?logo=react) ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-blue?logo=tailwindcss) ![License](https://img.shields.io/badge/License-MIT-green) ![Status](https://img.shields.io/badge/Status-Active-success) ![Contributions](https://img.shields.io/badge/Contributions-Welcome-orange)
+
 ## 🚀 Features
 
 - 📅 Timetable management
