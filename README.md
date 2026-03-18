@@ -1,46 +1,104 @@
-# Getting Started with Create React App
+# StudyFlow 📚
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+StudyFlow is a React-based web application designed to help students manage their academic activities, track progress, and explore career opportunities efficiently through a clean and intuitive interface.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- 📅 Timetable management
+- 📝 Notes and assignments tracking
+- 💼 Job opportunities dashboard
+- 🎓 Career guidance modules
+- 📊 Subject progress tracking
+- 🎨 Clean and responsive UI using Tailwind CSS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📸 Screenshots
 
-### `npm test`
+### 🏠 Dashboard Overview
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Dashboard](./screenshots/dashboard copy.png)
 
-### `npm run build`
+### ⚡ Quick Access Panel
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Quick Access](./screenshots/quick-access copy.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 📊 Tasks & Time Tracking
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Tasks](./screenshots/tasks copy.png)
 
-### `npm run eject`
+### 📈 Subject Progress
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Progress](./screenshots/progress copy.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🛠 Tech Stack
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- React (Create React App)
+- Tailwind CSS
+- JavaScript (ES6+)
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📦 Installation & Setup
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clone the repository and install dependencies:
+
+```bash
+git clone <repo-url>
+cd StudyFlow
+npm install
+npm start
+```
+
+App will run at:
+👉 http://localhost:3000
+
+---
+
+## 📁 Project Structure
+
+```
+StudyFlow/
+│── public/        # Static assets
+│── src/           # Main application logic
+│── components/    # Reusable UI components
+│── pages/         # Application pages (Dashboard, Jobs, etc.)
+│── screenshots/   # Project screenshots for documentation
+```
+
+---
+
+## ✨ Improvements Made
+
+- Enhanced documentation for better project understanding
+- Added screenshots for visual clarity
+- Improved UI consistency and styling
+- Refactored code for better readability
+
+---
+
+## 🔮 Future Enhancements
+
+- User authentication system
+- Real-time data integration
+- Study planner with reminders
+- Performance optimizations
+
+---
+
+## 📚 Learn More
+
+- React Docs: https://reactjs.org/
+- Create React App: https://create-react-app.dev/
+
+---
+
+## 👨‍💻 Contributors
+
+- Jai Sachdeva
+- Eshanya Padial
+- Ishan Gautam
