@@ -59,6 +59,18 @@ App will run at:
 
 ---
 
+## ▶️ Usage
+
+After starting the app:
+
+- Navigate to the dashboard to view your academic overview
+- Use **Notes** to manage study material
+- Check **Timetable** for your weekly schedule
+- Track assignments and deadlines in **Tasks**
+- Monitor progress in **Subject Progress section**
+
+This helps students stay organized and manage their studies efficiently.
+
 ## 📁 Project Structure
 
 ```
