@@ -19,19 +19,19 @@ StudyFlow is a React-based web application designed to help students manage thei
 
 ### 🏠 Dashboard Overview
 
-![Dashboard](./screenshots/dashboard copy.png)
+![Dashboard](./screenshots/dashboard.png)
 
 ### ⚡ Quick Access Panel
 
-![Quick Access](./screenshots/quick-access copy.png)
+![Quick Access](./screenshots/quick-access.png)
 
 ### 📊 Tasks & Time Tracking
 
-![Tasks](./screenshots/tasks copy.png)
+![Tasks](./screenshots/tasks.png)
 
 ### 📈 Subject Progress
 
-![Progress](./screenshots/progress copy.png)
+![Progress](./screenshots/progress.png)
 
 ---
 
